@@ -1,0 +1,63 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Activity {
+  createdAt   DateTime  @default(now())
+  date        DateTime?
+  description String?
+  id          String    @id @default(cuid())
+  name        String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Gallery {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  image       Json?
+  title       String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Donation {
+  amount    Float?
+  createdAt DateTime @default(now())
+  donor     String?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model About {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  updatedAt   DateTime @updatedAt
+}
+
+model Location {
+  address   String?
+  city      String?
+  country   String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
